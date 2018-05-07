@@ -1,7 +1,6 @@
 #' read a *.gct file into your session
 #' @param gct.file path to gct formatted file
 #' @return matrix with a "description" attribute
-#' @importFrom magrittr set_rownames
 #' @export
 read.gct <- function(gct.file) {
     dat <- read.delim(gct.file, skip=2, header=TRUE, sep="\t",

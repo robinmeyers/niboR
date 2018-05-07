@@ -9,9 +9,7 @@ Description: .
 License: What license is it under?
 LazyData: true
 Imports:
-    tidyverse
-Depends:
-    plyr, magrittr, Matrix
+    Matrix, plyr, magrittr, tidyverse,
 Suggests:
     testthat
 RoxygenNote: 6.0.1
