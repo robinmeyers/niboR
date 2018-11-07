@@ -4,7 +4,7 @@
 \alias{read.gmt}
 \title{read a *.gmt file into your session}
 \usage{
-read.gmt(gmt, as.df = T, sep = "\\t")
+read.gmt(gmt, as.df = F, sep = "\\t")
 }
 \arguments{
 \item{as.df}{whether to return as data frame or list}
