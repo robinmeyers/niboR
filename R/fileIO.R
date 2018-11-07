@@ -55,7 +55,7 @@ write.gct <- function(mat, gct.file, description = attr(mat, "Description")) {
 #' @param as.df whether to return as data frame or list
 #' @return either a list of character vectors or a two column data.frame
 #' @export
-read.gmt <- function(gmt, as.df=T, sep="\t") {
+read.gmt <- function(gmt, as.df=F, sep="\t") {
     genesets <- readLines(gmt, warn=F) %>%
         str_split(sep) %>%
         magrittr::set_names(., laply(., function(l) l[1])) %>%
