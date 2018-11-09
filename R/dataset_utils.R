@@ -263,3 +263,52 @@ downsample_data <- function(dat, col_name, quantiles=c(0.05, 0.25), fracs=c(1, 0
 
 }
 
+
+#' Correlation matrix
+#'
+#' @param x data matrix
+#' @param ... arguments passed to plyr::aaply()
+#'
+#' @return correlation matrix
+#' @description Calculates correlations between all rows of a matrix.
+#' Parallelizable.
+#' @export
+
+row_correlations <- function(x, ...) {
+
+    aaply(x, 1, cor, y=t(x), ...) %>%
+        set_colnames(rownames(x)) %>%
+        set_rownames(rownames(x))
+}
+
+
+
+#' Alphabetically sorts entries in data frame across two columns
+#'
+#' @param df data frame
+#' @param x Column x
+#' @param y Column y
+#'
+#' @return Data frame with same structure as input
+#'
+#' @description Ensures that elements in column x are alphabetically before
+#' elements in column y. If they are not, the entries are swapped.
+#'
+#' @export
+
+alphabetize_cols <- function(df, x, y) {
+
+    x = enquo(x)
+    y = enquo(y)
+
+    new_x <- pmin(df %>% pull(!! x),
+                  df %>% pull(!! y))
+    new_y <- pmax(df %>% pull(!! x),
+                  df %>% pull(!! y))
+
+    df %>%
+        mutate(!! quo_name(x) := new_x,
+               !! quo_name(y) := new_y) %>%
+        arrange(!! x, !! y)
+}
+

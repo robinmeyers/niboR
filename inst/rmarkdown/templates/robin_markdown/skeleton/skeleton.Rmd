@@ -15,4 +15,15 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F)
 ```{r}
 library(ProjectTemplate)
 load.project()
+
+threads <- 4
+
+if (threads > 1) {
+    library(doMC)
+    registerDoMC(cores=threads)
+    do_parallel <- T
+} else {
+    do_parallel <- F
+}
+
 ```
