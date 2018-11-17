@@ -13,6 +13,9 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F)
 ```
 
 ```{r}
+### Load other libraries
+library()
+
 library(ProjectTemplate)
 load.project()
 
@@ -27,3 +30,11 @@ if (threads > 1) {
 }
 
 ```
+
+```{r}
+### Edit output directory or include subdirectory
+sub_dir <- 
+out_dir <- file.path("./results", sub_dir, Sys.Date())
+dir.create(out_dir, recursive = T, showWarnings = F)
+```
+
