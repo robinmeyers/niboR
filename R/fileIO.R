@@ -5,18 +5,69 @@
 read.gct <- function(gct.file) {
     dat <- read.delim(gct.file, skip=2, header=TRUE, sep="\t",
                       check.names=F, as.is=T)
-    if (colnames(dat)[1] == "NAME") {
-        dat <- rename(dat, Name = NAME)
-    }
-    if (colnames(dat)[2] == "DESCRIPTION") {
-        dat <- rename(dat, Description = DESCRIPTION)
-    }
+    # if (colnames(dat)[1] == "NAME") {
+    #     dat <- rename(dat, Name = NAME)
+    # }
+    # if (colnames(dat)[2] == "DESCRIPTION") {
+    #     dat <- rename(dat, Description = DESCRIPTION)
+    # }
+
+    colnames(dat)[1] <- "Name"
+    colnames(dat)[2] <- "Description"
+
     mat <- as.matrix(select(dat, -Name, -Description)) %>%
         magrittr::set_rownames(dat$Name)
     attr(mat,"Description") <- dat$Description %>% magrittr::set_names(dat$Name)
     return(mat)
 }
 
+#' read a *.gct[.gz] file into your session
+#' @param gct_file path to gct formatted file
+#' @param chunk_size number of lines to read at once
+#' @return matrix with a "Description" attribute
+#' @export
+read_gct <- function(gct_file, chunk_size = 1000) {
+
+    if (! stringr::str_detect(gct_file, "\\.gct(.gz)?$")) {
+        stop("Error: gct_file extension not recognized")
+    }
+
+    if (stringr::str_detect(gct_file, "\\.gct\\.gz$")) {
+        f <- gzfile(gct_file)
+    } else {
+        f <- file(gct_file)
+    }
+
+    open(f)
+    first_line <- readLines(f, n=1)
+    second_line <- readLines(f, n=1)
+    header_raw <- readLines(f, n=1)
+    header <- header_raw %>%
+        stringr::str_split("\t") %>%
+        unlist %>%
+        tail(-2)
+
+    row_names <- c()
+    row_descriptions <- c()
+
+    dat <- matrix(nrow=0, ncol=length(header))
+
+    repeat {
+        l <- readLines(f, n = chunk_size)
+        if (length(l) == 0) break
+        chunk <- stringr::str_split(l, "\t") %>%
+            plyr::laply(identity)
+        row_names <- c(row_names, chunk[,1])
+        row_descriptions <- c(row_descriptions, chunk[,2])
+        dat <- rbind(dat, plyr::aaply(chunk[,-1:-2], 1, as.numeric))
+    }
+    close(f)
+
+    attr(dat, "Description") <- row_descriptions
+
+    dat %>% set_rownames(row_names) %>% set_colnames(header) %>% return
+
+}
 
 #' write a *.gct file to disk
 #' @param mat data matrix, optionally with attribute "description"

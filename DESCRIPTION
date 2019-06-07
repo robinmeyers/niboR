@@ -9,7 +9,7 @@ Description: .
 License: What license is it under?
 LazyData: true
 Imports:
-    Matrix, plyr, magrittr, tidyverse,
+    Matrix, plyr, magrittr, tidyverse, scales
 Suggests:
     testthat
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
