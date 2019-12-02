@@ -4,8 +4,12 @@
 \alias{align.dataset.margins}
 \title{align dataset margins}
 \usage{
-align.dataset.margins(datasets, na.rows = TRUE, na.cols = FALSE,
-  use.dims = NULL)
+align.dataset.margins(
+  datasets,
+  na.rows = TRUE,
+  na.cols = FALSE,
+  use.dims = NULL
+)
 }
 \arguments{
 \item{datasets}{list of matrices (columns are samples, rows are genes)}

@@ -65,7 +65,10 @@ read_gct <- function(gct_file, chunk_size = 1000) {
 
     attr(dat, "Description") <- row_descriptions
 
-    dat %>% set_rownames(row_names) %>% set_colnames(header) %>% return
+    dat %>%
+        magrittr::set_rownames(row_names) %>%
+        magrittr::set_colnames(header) %>%
+        return
 
 }
 

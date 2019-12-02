@@ -4,6 +4,8 @@
 #'
 #' @name niboR
 #' @docType package
-#' @import tidyverse
-
+#' @import magrittr
+#' @import readr
+#' @import dplyr
+#' @import ggplot2
 NULL

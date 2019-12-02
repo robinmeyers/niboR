@@ -4,8 +4,13 @@
 \alias{make.a.tidy.dataset}
 \title{make a tidy dataset}
 \usage{
-make.a.tidy.dataset(datasets, na.rows = TRUE, na.cols = FALSE,
-  use.dims = NULL, dim.names = c("Gene", "Sample"))
+make.a.tidy.dataset(
+  datasets,
+  na.rows = TRUE,
+  na.cols = FALSE,
+  use.dims = NULL,
+  dim.names = c("Gene", "Sample")
+)
 }
 \arguments{
 \item{datasets}{list of matrices (columns are samples, rows are genes)}

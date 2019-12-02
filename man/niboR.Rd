@@ -3,7 +3,6 @@
 \docType{package}
 \name{niboR}
 \alias{niboR}
-\alias{niboR-package}
 \title{niboR}
 \description{
 niboR | Robin - useful functions
